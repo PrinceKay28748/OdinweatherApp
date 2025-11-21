@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Weather App</title>
+</head>
+<body>
+
+<form id="search-form">
+    <input type="text" id="city-input" placeholder="Enter city name" />
+    <button type="submit" id="search-button">Search</button>
+</form>
+
+<div id="loading-bar"></div>
+
+
+<!-- area where weather will be displayed -->
+<div id="weather-container" aria-live="polite"></div>
+
+<!-- simple loading element (hidden by default) -->
+<div id="loading" style="display:none">Loading…</div>
+
+
+
+    <script src="index.js"></script>
+    
+</body>
+</html>

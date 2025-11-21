@@ -1,0 +1,287 @@
+/* index.css — Dark Neon Weather Theme
+   Drop into your project as-is. Uses system fonts (no external requests).
+*/
+
+/* ---- Variables ---- */
+:root{
+  --bg:#07070a;
+  --panel:#0f1115;
+  --muted:#9aa3b2;
+  --accent1:#00e6ff;    /* neon cyan */
+  --accent2:#7c4dff;    /* neon purple */
+  --glow: 0 6px 24px rgba(124,77,255,0.14), 0 2px 8px rgba(0,230,255,0.08);
+  --card-radius:16px;
+  --glass: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.06);
+  --max-width:900px;
+}
+
+/* ---- Base ---- */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(0,230,255,0.03), transparent 6%),
+              radial-gradient(900px 400px at 90% 90%, rgba(124,77,255,0.03), transparent 6%),
+              var(--bg);
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:48px 20px;
+}
+
+/* center container */
+body > * {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ---- App Shell ---- */
+#search-form{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+  padding:8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));
+  border-radius:999px;
+  border:1px solid var(--glass-border);
+  box-shadow: var(--glow);
+  width:100%;
+  max-width:720px;
+  padding:12px;
+}
+
+/* search input */
+#city-input{
+  flex:1;
+  min-width:140px;
+  background:transparent;
+  border:0;
+  color:var(--muted);
+  outline:none;
+  padding:12px 16px;
+  font-size:16px;
+  color: #d7e9ff;
+  letter-spacing:0.2px;
+}
+
+/* placeholder style */
+#city-input::placeholder{ color: rgba(215,233,255,0.35); }
+
+/* search button */
+#search-button{
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  border:0;
+  padding:10px 18px;
+  font-weight:700;
+  color:#031018;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow: 0 6px 18px rgba(0,230,255,0.12), inset 0 -2px 0 rgba(0,0,0,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+  font-size:15px;
+}
+#search-button:active{ transform: translateY(1px) scale(.996); }
+#search-button:hover{ box-shadow: 0 10px 30px rgba(124,77,255,0.14), inset 0 -2px 0 rgba(0,0,0,0.12); }
+
+/* small helper: loading text */
+#loading{
+  display:none;
+  text-align:center;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* ---- Weather container ---- */
+#weather-container{
+  margin-top:20px;
+  display:block;
+  width:100%;
+  color: #e6eef8;
+}
+
+/* current weather card */
+.current-weather{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  padding:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--card-radius);
+  border:1px solid var(--glass-border);
+  box-shadow: var(--glow);
+  overflow:hidden;
+  align-items:center;
+}
+
+/* icon wrap */
+.current-weather .icon-wrap{
+  width:84px;
+  height:84px;
+  min-width:84px;
+  min-height:84px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 2px 8px rgba(124,77,255,0.06);
+}
+
+/* text area */
+.current-weather h2{
+  margin:0 0 6px 0;
+  font-size:20px;
+  letter-spacing:0.2px;
+  color: #ffffff;
+}
+.current-weather p{
+  margin:2px 0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* layout: details on the right (stacked) */
+.current-weather > div:last-child{
+  flex:1;
+}
+
+/* ---- Forecast grid ---- */
+.forecast{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap:12px;
+  margin-top:16px;
+}
+
+/* individual day card */
+.forecast-day{
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border-radius:12px;
+  padding:12px;
+  border:1px solid var(--glass-border);
+  text-align:center;
+  transition: transform .14s ease, box-shadow .14s ease;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:center;
+}
+.forecast-day:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.45), var(--glow); }
+
+.forecast-day h3{
+  margin:0;
+  font-size:15px;
+  color:#f2f8ff;
+}
+.forecast-day p{ margin:0; color:var(--muted); font-size:13px; }
+
+/* icon inside forecast */
+.forecast-day .day-icon img{
+  filter: drop-shadow(0 6px 20px rgba(124,77,255,0.12));
+  width:48px;
+  height:48px;
+}
+
+/* subtle neon accent line under current card */
+.current-weather::after{
+  content:'';
+  display:block;
+  height:3px;
+  width:100%;
+  margin-top:14px;
+  border-radius:6px;
+  background: linear-gradient(90deg, rgba(0,230,255,0.18), rgba(124,77,255,0.18));
+  opacity:.85;
+}
+
+/* ---- Empty state / messages ---- */
+#weather-container:empty{
+  min-height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+}
+
+/* ---- Tiny responsive tweaks ---- */
+@media (max-width:560px){
+  body{ padding:28px 14px; }
+  .current-weather{ flex-direction:row; gap:12px; align-items:center; padding:14px; }
+  .current-weather .icon-wrap{ width:64px; height:64px; min-width:64px; min-height:64px; }
+  .forecast{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:10px; }
+}
+
+/* ---- Loading spinner (neon) ---- */
+#loading{
+  display:none;
+  margin-top:14px;
+}
+#loading.show{
+  display:block;
+  text-align:center;
+}
+.spinner{
+  display:inline-block;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,0.06);
+  border-top-color: var(--accent1);
+  animation: spin 1s linear infinite;
+  box-shadow: 0 6px 24px rgba(0,230,255,0.08), 0 2px 10px rgba(124,77,255,0.06);
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* ---- Tiny focus styles for accessibility ---- */
+#city-input:focus, #search-button:focus {
+  outline: 3px solid rgba(0,230,255,0.12);
+  outline-offset:4px;
+  border-radius:999px;
+}
+
+/* ---- Utility: small muted text ---- */
+.small-muted{ color:var(--muted); font-size:13px; }
+
+/* Neon Loading Bar */
+#loading-bar {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 5px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px auto 0 auto;
+    background: rgba(255,255,255,0.06);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#loading-bar.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#loading-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border-radius: 12px;
+    animation: loadingSlide 1.2s linear infinite;
+}
+
+@keyframes loadingSlide {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(200%); }
+}
+
+
+/* ---- End ---- */
